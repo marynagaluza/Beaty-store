@@ -1,0 +1,28 @@
+.footer {
+    background: var(--color-hf);
+    color: var(--color-bg);
+}
+
+.footer__container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* .footer__nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} */
+

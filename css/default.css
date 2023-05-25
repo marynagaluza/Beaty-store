@@ -1,7 +1,67 @@
+html {
+    box-sizing: border-box;
+    --main-color: #342F54;
+    --color-hf: radial-gradient(circle at 0 0, hsl(0, 0%, 20%), hsl(224, 44%, 8%));
+    --color-bg: #F1F1E6;
+}
+
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+
 body {
+    height: 100%;
     font-family: 'Excon', sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 30px;
-    color: #342F54;
+    color: var(--main-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+
+}
+
+button {
+    cursor: pointer;
+    padding: 0;
+}
+
+input {
+    font-family: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+select {
+    font: inherit;
+    letter-spacing: inherit;
+    word-spacing: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.container {
+    min-height: 100%;
+    max-width: 1260px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0 10px;
 }
