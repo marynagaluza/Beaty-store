@@ -5,10 +5,15 @@ class UI {
     productsDOM.innerHTML = ''
     data.forEach(item => {
         productsDOM.innerHTML +=
-            `<article class="goods__item">
-            <div><img class="goods__item-photo" src="${item.image}" alt="product item"></div>
-            <div class="goods__item-price">${item.price} $</div>
-            <div class="goods__item-title">${item.title}</div>
+            `<article class="products__item" id="${item.id}">
+            <div class="products__item-img">
+                <img src="${item.image}" alt="product item">
+            </div>
+            <div class="products__item-info">
+                <p class="products__item-price">${item.price} $</p>
+                <p class="products__item-title">${item.title}</p>
+            </div>
+            <a class="products__item-link" href="#/${item.id}">Show more</a>
             </article>`
         })
     }

@@ -1,4 +1,4 @@
-let productsDOM = document.querySelector('.goods__list');
-let selectDOM = document.querySelector('.goods__category_selection');
+let productsDOM = document.querySelector('.products__list');
+let selectDOM = document.querySelector('.products__category_selection');
 
 export { productsDOM, selectDOM }
