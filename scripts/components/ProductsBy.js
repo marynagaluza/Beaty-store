@@ -1,16 +1,14 @@
-import { BASE_URL } from "../API.js";
-import { ui } from "./UI.js";
+import { BASE_URL } from '../API.js';
+import { createUI } from './UI.js';
 
-class ProductsByCategory {
-    getProductsByCategory (value) {
-        fetch(`${BASE_URL}/category/${value}`)
-        .then(res=>res.json())
-        .then(data => {
-            ui.createUI (data)
-        })
-        .catch((err) => console.log(err)); 
+const getProductsByCategory = async (value) => {
+    try {
+        let result = await fetch(`${BASE_URL}/category/${value}`);
+        let data = await result.json();
+        createUI (data);
+    } catch (err) {
+        console.log('Wooops!!', err.message);
     }
 }
 
-let productsByCategory = new ProductsByCategory()
-export { productsByCategory }
+export { getProductsByCategory }
