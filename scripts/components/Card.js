@@ -12,31 +12,29 @@ const createCardUI = (product) => {
     <div class="product__card_add">+</div>
     <div class="product__card_delete">-</div>
     </div>`
+
+    let addProduct = document.querySelector('.product__card_add');
+    addProduct.addEventListener('click', () => {
+        if (!currentProduct) {
+            localStorage.setItem(product.id, JSON.stringify({count: count-=1, title: product.title}))
+            count = 0;
+        } else {
+            localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count += 1, title: currentProduct.title}))
+        }
+        showProductsFromBasket()
+    })
+
+    let deleteProduct = document.querySelector('.product__card_delete');
+    deleteProduct.addEventListener('click', () => {
+        let currentProduct = JSON.parse(localStorage.getItem(product.id));
+        if (currentProduct.count > 0) {
+            localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count-=1, title: product.title}))
+        }
+        if (currentProduct.count < 1){
+            localStorage.removeItem
+        }
+        showProductsFromBasket()
+    })
 }
-
-let addProduct = document.querySelector('.product__card_add');
-let currentProduct = JSON.parse(localStorage.getItem(product.id));
-
-addProduct.addEventListener('click', () => {
-    if (!currentProduct) {
-        localStorage.setItem(product.id, JSON.stringify({count: count-=1, title: product.title}))
-        count = 0;
-    } else {
-        localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count += 1, title: currentProduct.title}))
-    }
-    showProductsFromBasket()
-})
-
-let deleteProduct = document.querySelector('.product__card_delete');
-deleteProduct.addEventListener('click', () => {
-
-    if (currentProduct.count > 0) {
-        localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count-=1, title: product.title}))
-    }
-    if (currentProduct.count < 1){
-        localStorage.removeItem
-    }
-    showProductsFromBasket()
-})
 
 export { createCardUI }
