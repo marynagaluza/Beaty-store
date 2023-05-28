@@ -1,4 +1,4 @@
-import { productsCount } from "./DOM.js";
+import { productsCount } from "../DOM.js";
 
 const getBasketCount = () => {
     let sumProductsInBasket = 0;

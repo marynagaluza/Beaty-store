@@ -6,4 +6,4 @@ let productsCount = document.querySelector('.products__count');
 // let deleteProduct = document.querySelector('.product__card_delete');
 let basket = document.querySelector('.products__basket');
 
-export { productsDOM, selectDOM, oneProductLink, productsCount, addProduct, deleteProduct, basket }
+export { productsDOM, selectDOM, oneProductLink, productsCount, basket }

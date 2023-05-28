@@ -1,11 +1,11 @@
 import { BASE_URL } from '../API.js';
-import { ui } from './UI.js';
+import { createUI } from './UI.js';
 
 const getProducts = async () => {
     try {
         let result = await fetch(BASE_URL);
         let data = await result.json();
-        ui.createUI(data);
+        createUI(data);
     } catch (err) {
     console.log('Wooops!!', err.message);
     }

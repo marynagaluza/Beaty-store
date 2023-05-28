@@ -1,4 +1,4 @@
-import { productsDOM, addProduct, deleteProduct } from '../DOM.js';
+import { productsDOM } from '../DOM.js';
 import { showProductsFromBasket } from './Basket.js';
 
 const createCardUI = (product) => {
