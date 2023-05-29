@@ -1,4 +1,5 @@
 import { productsDOM } from '../DOM.js'
+import { getProductById } from './getOneProduct.js';
 
 const createUI = (data) => {
 productsDOM.innerHTML = '';
@@ -12,7 +13,7 @@ data.forEach(item => {
             <p class="products__item-price">${item.price} $</p>
             <p class="products__item-title">${item.title}</p>
         </div>
-        <a class="products__item-link" href="#/${item.id}">Show more</a>
+        <a class="products__item-link" href="#/card/${item.id}">Show more</a>
         </article>`
     })
 }

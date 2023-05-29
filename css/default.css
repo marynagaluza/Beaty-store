@@ -3,6 +3,7 @@ html {
     --main-color: #342F54;
     --color-hf: radial-gradient(circle at 0 0, hsl(0, 0%, 20%), hsl(224, 44%, 8%));
     --color-bg: #F1F1E6;
+    --accent-color: #b82948;
 }
 
 *, *::after, *::before {
@@ -27,6 +28,7 @@ img {
 button {
     cursor: pointer;
     padding: 0;
+    border: none;
 }
 
 input {

@@ -5,12 +5,16 @@ const createCardUI = (product) => {
     productsDOM.innerHTML = '';
     productsDOM.innerHTML =
     `<div class="product__card">
+    <a class="products__item-link" href="/">Home page</a>
+    <div class="card__btn">
+    <button class="card__btn-add"><img src="../images/plus_btn.svg" alt="plus"></button>
+    <button class="card__btn-delete"><img src="../images/minus_btn.svg" alt="minus"></button>
+    </div>
     <div class="product__card-title">${product.title}</div>
     <div class="product__card-description">${product.description}</div>
-    <div class="product__card-image" alt="product image">${product.image}</div>
+    <div class="product__card-img">
+    <img src="${product.image}" alt="product image"></div>
     <div class="product__card-price">${product.price} $</div>
-    <div class="product__card_add">+</div>
-    <div class="product__card_delete">-</div>
     </div>`
 
     let addProduct = document.querySelector('.product__card_add');
