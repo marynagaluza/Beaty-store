@@ -36,8 +36,6 @@ let productsDOM = document.querySelector('.products__list');
 let selectDOM = document.querySelector('.products__category_selection');
 let oneProductLink = document.querySelectorAll('.products__item-link')
 let productsCount = document.querySelector('.products__count');
-// let addProduct = document.querySelector('.product__card_add');
-// let deleteProduct = document.querySelector('.product__card_delete');
 let basket = document.querySelector('.products__basket');
 
 
@@ -61,10 +59,10 @@ const showProductsFromBasket = () => {
     _DOM_js__WEBPACK_IMPORTED_MODULE_0__.productsDOM.innerHTML = '';
     for (let i = 0; i < localStorage.length; i++) {
         let id = localStorage.key(i);
-        let productData = JSON.parse(localStorage.getItem(id));
+        let product = JSON.parse(localStorage.getItem(id));
         _DOM_js__WEBPACK_IMPORTED_MODULE_0__.productsDOM.innerHTML += `<div><div>
-        <span>${productData.title}</span>
-        <span>Count ${productData.count}</span>
+        <span>${product.title}</span>
+        <span>Count ${product.count}</span>
         </div></div>`
     }
 }
@@ -84,7 +82,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createCardUI: () => (/* binding */ createCardUI)
 /* harmony export */ });
 /* harmony import */ var _DOM_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../DOM.js */ "./scripts/DOM.js");
-/* harmony import */ var _Basket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Basket.js */ "./scripts/components/Basket.js");
+/* harmony import */ var _getBasketCount_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getBasketCount.js */ "./scripts/components/getBasketCount.js");
 
 
 
@@ -92,39 +90,43 @@ const createCardUI = (product) => {
     _DOM_js__WEBPACK_IMPORTED_MODULE_0__.productsDOM.innerHTML = '';
     _DOM_js__WEBPACK_IMPORTED_MODULE_0__.productsDOM.innerHTML =
     `<div class="product__card">
+    <a class="products__item-link" href="/">Home page</a>
+    <div class="card__btn">
+    <button class="card__btn-add"><img src="../images/plus_btn.svg" alt="plus"></button>
+    <button class="card__btn-delete"><img src="../images/minus_btn.svg" alt="minus"></button>
+    </div>
     <div class="product__card-title">${product.title}</div>
     <div class="product__card-description">${product.description}</div>
-    <div class="product__card-image" alt="product image">${product.image}</div>
+    <div class="product__card-img">
+    <img src="${product.image}" alt="product image"></div>
     <div class="product__card-price">${product.price} $</div>
-    <div class="product__card_add">+</div>
-    <div class="product__card_delete">-</div>
     </div>`
+
+
+    let addProduct = document.querySelector('.card__btn-add');
+    addProduct.addEventListener('click', () => {
+        let currentProduct = JSON.parse(localStorage.getItem(product.id));
+        if (!currentProduct) {
+            let count = 0;
+            localStorage.setItem(product.id, JSON.stringify({count: count+=1, title: product.title}))
+        } else {
+            localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count += 1, title: currentProduct.title}))
+        }
+        (0,_getBasketCount_js__WEBPACK_IMPORTED_MODULE_1__.getBasketCount)();
+    })
+
+    let deleteProduct = document.querySelector('.card__btn-delete');
+    deleteProduct.addEventListener('click', () => {
+        let currentProduct = JSON.parse(localStorage.getItem(product.id));
+        if (currentProduct.count > 0) {
+            localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count-=1, title: product.title}));
+        }
+        if (currentProduct.count < 1){
+            localStorage.removeItem(product.id);
+        }
+        (0,_getBasketCount_js__WEBPACK_IMPORTED_MODULE_1__.getBasketCount)();
+    })
 }
-
-let addProduct = document.querySelector('.product__card_add');
-let currentProduct = JSON.parse(localStorage.getItem(product.id));
-
-addProduct.addEventListener('click', () => {
-    if (!currentProduct) {
-        localStorage.setItem(product.id, JSON.stringify({count: count-=1, title: product.title}))
-        count = 0;
-    } else {
-        localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count += 1, title: currentProduct.title}))
-    }
-    (0,_Basket_js__WEBPACK_IMPORTED_MODULE_1__.showProductsFromBasket)()
-})
-
-let deleteProduct = document.querySelector('.product__card_delete');
-deleteProduct.addEventListener('click', () => {
-
-    if (currentProduct.count > 0) {
-        localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count-=1, title: product.title}))
-    }
-    if (currentProduct.count < 1){
-        localStorage.removeItem
-    }
-    (0,_Basket_js__WEBPACK_IMPORTED_MODULE_1__.showProductsFromBasket)()
-})
 
 
 
@@ -234,7 +236,7 @@ __webpack_require__.r(__webpack_exports__);
 class Router {
     routes = [];
     constructor () {
-        this.listen()
+        this.listen();
     }
 
     add = (path, cb) => {
@@ -258,10 +260,10 @@ class Router {
         if (this.current === this.getFragment()) return;
         this.current = this.getFragment();
         this.routes.some(route => {
-            const match = this.current.match(route.path)
+            const match = this.current.match(route.path);
             if(match) {
-                match.shift()
-                route.cb(match[0])
+                match.shift();
+                route.cb(match[0]);
             }
             return false;
         })
@@ -285,6 +287,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createUI: () => (/* binding */ createUI)
 /* harmony export */ });
 /* harmony import */ var _DOM_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../DOM.js */ "./scripts/DOM.js");
+/* harmony import */ var _getOneProduct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getOneProduct.js */ "./scripts/components/getOneProduct.js");
+
 
 
 const createUI = (data) => {
@@ -299,7 +303,7 @@ data.forEach(item => {
             <p class="products__item-price">${item.price} $</p>
             <p class="products__item-title">${item.title}</p>
         </div>
-        <a class="products__item-link" href="#/${item.id}">Show more</a>
+        <a class="products__item-link" href="#/card/${item.id}">Show more</a>
         </article>`
     })
 }
@@ -323,11 +327,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const getBasketCount = () => {
     let sumProductsInBasket = 0;
-        for (let i = 0; 0<localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        let productObj = JSON.parse(localStorage.getItem(key))
-        sumProductsInBasket += +productObj.count
-        _DOM_js__WEBPACK_IMPORTED_MODULE_0__.productsCount.innerHTML = sumProductsInBasket
+        let productObj = JSON.parse(localStorage.getItem(key));
+        sumProductsInBasket += +productObj.count;
+        _DOM_js__WEBPACK_IMPORTED_MODULE_0__.productsCount.innerHTML = sumProductsInBasket;
     }
 }
 
@@ -353,8 +357,8 @@ __webpack_require__.r(__webpack_exports__);
 const getProductById = async (id) => {
     try {
         let res = await fetch(_API_js__WEBPACK_IMPORTED_MODULE_0__.BASE_URL + `/${id}`);
-        let oneProduct = await res.json();
-        (0,_Card_js__WEBPACK_IMPORTED_MODULE_1__.createCardUI)(oneProduct);
+        let product = await res.json();
+        (0,_Card_js__WEBPACK_IMPORTED_MODULE_1__.createCardUI)(product);
     } catch (err) {
         console.log('Wooops!!', err.message);
     }
@@ -429,14 +433,12 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Products_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Products.js */ "./scripts/components/Products.js");
 /* harmony import */ var _components_Categories_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Categories.js */ "./scripts/components/Categories.js");
-/* harmony import */ var _components_Card_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Card.js */ "./scripts/components/Card.js");
-/* harmony import */ var _components_ProductsBy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ProductsBy.js */ "./scripts/components/ProductsBy.js");
-/* harmony import */ var _DOM_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DOM.js */ "./scripts/DOM.js");
-/* harmony import */ var _components_Router_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Router.js */ "./scripts/components/Router.js");
-/* harmony import */ var _components_getOneProduct_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/getOneProduct.js */ "./scripts/components/getOneProduct.js");
-/* harmony import */ var _components_Basket_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Basket.js */ "./scripts/components/Basket.js");
-/* harmony import */ var _components_getBasketCount_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/getBasketCount.js */ "./scripts/components/getBasketCount.js");
-
+/* harmony import */ var _components_ProductsBy_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ProductsBy.js */ "./scripts/components/ProductsBy.js");
+/* harmony import */ var _DOM_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DOM.js */ "./scripts/DOM.js");
+/* harmony import */ var _components_Router_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Router.js */ "./scripts/components/Router.js");
+/* harmony import */ var _components_getOneProduct_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/getOneProduct.js */ "./scripts/components/getOneProduct.js");
+/* harmony import */ var _components_Basket_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Basket.js */ "./scripts/components/Basket.js");
+/* harmony import */ var _components_getBasketCount_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/getBasketCount.js */ "./scripts/components/getBasketCount.js");
 
 
 
@@ -449,36 +451,24 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', function() {
     (0,_components_Products_js__WEBPACK_IMPORTED_MODULE_0__.getProducts)();
     (0,_components_Categories_js__WEBPACK_IMPORTED_MODULE_1__.getCategories)();
-    (0,_components_getBasketCount_js__WEBPACK_IMPORTED_MODULE_8__.getBasketCount)();
-    _DOM_js__WEBPACK_IMPORTED_MODULE_4__.productsCount.addEventListener('click', () => {
-    (0,_components_Basket_js__WEBPACK_IMPORTED_MODULE_7__.showProductsFromBasket)();
-    });
-    if (localStorage.length) {
-        (0,_components_getBasketCount_js__WEBPACK_IMPORTED_MODULE_8__.getBasketCount)();
-    }
-    (0,_components_Basket_js__WEBPACK_IMPORTED_MODULE_7__.showProductsFromBasket)();
+    (0,_components_getBasketCount_js__WEBPACK_IMPORTED_MODULE_7__.getBasketCount)();
+
+    _DOM_js__WEBPACK_IMPORTED_MODULE_3__.productsCount.addEventListener('click', () => (0,_components_Basket_js__WEBPACK_IMPORTED_MODULE_6__.showProductsFromBasket)());
 })
 
-_DOM_js__WEBPACK_IMPORTED_MODULE_4__.selectDOM.addEventListener('change', function() {
-    if (_DOM_js__WEBPACK_IMPORTED_MODULE_4__.selectDOM.value === 'all') { 
+_DOM_js__WEBPACK_IMPORTED_MODULE_3__.selectDOM.addEventListener('change', function() {
+    if (_DOM_js__WEBPACK_IMPORTED_MODULE_3__.selectDOM.value === 'all') { 
         products.getProducts()
     }   else {
-        (0,_components_ProductsBy_js__WEBPACK_IMPORTED_MODULE_3__.getProductsByCategory)(_DOM_js__WEBPACK_IMPORTED_MODULE_4__.selectDOM.value)
+        (0,_components_ProductsBy_js__WEBPACK_IMPORTED_MODULE_2__.getProductsByCategory)(_DOM_js__WEBPACK_IMPORTED_MODULE_3__.selectDOM.value)
     }
 })
 
-// oneProductLink.forEach(oneProduct => {
-//     oneProduct.addEventListener('click', () => {
-//         createCardUI();
-//     })}
-// )
-
-
-_components_Router_js__WEBPACK_IMPORTED_MODULE_5__.router.add(/card\/(.*)/, (id) => {
-    ;(0,_components_getOneProduct_js__WEBPACK_IMPORTED_MODULE_6__.getProductById)(id);
+_components_Router_js__WEBPACK_IMPORTED_MODULE_4__.router.add(/card\/(.*)/, (id) => {
+    ;(0,_components_getOneProduct_js__WEBPACK_IMPORTED_MODULE_5__.getProductById)(id);
 })
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.e646645866ab5e642549.js.map
+//# sourceMappingURL=main.f37b175885d372606623.js.map

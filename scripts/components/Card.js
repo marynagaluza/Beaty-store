@@ -1,5 +1,5 @@
 import { productsDOM } from '../DOM.js';
-import { showProductsFromBasket } from './Basket.js';
+import { getBasketCount } from './getBasketCount.js';
 
 const createCardUI = (product) => {
     productsDOM.innerHTML = '';
@@ -17,27 +17,30 @@ const createCardUI = (product) => {
     <div class="product__card-price">${product.price} $</div>
     </div>`
 
-    let addProduct = document.querySelector('.product__card_add');
+
+    let addProduct = document.querySelector('.card__btn-add');
     addProduct.addEventListener('click', () => {
+        let currentProduct = JSON.parse(localStorage.getItem(product.id));
         if (!currentProduct) {
-            localStorage.setItem(product.id, JSON.stringify({count: count-=1, title: product.title}))
-            count = 0;
+            let count = 0;
+            localStorage.setItem(product.id, JSON.stringify({count: count+=1, title: product.title}))
         } else {
             localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count += 1, title: currentProduct.title}))
         }
-        showProductsFromBasket()
+        getBasketCount();
     })
 
-    let deleteProduct = document.querySelector('.product__card_delete');
+    let deleteProduct = document.querySelector('.card__btn-delete');
     deleteProduct.addEventListener('click', () => {
         let currentProduct = JSON.parse(localStorage.getItem(product.id));
         if (currentProduct.count > 0) {
-            localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count-=1, title: product.title}))
+            localStorage.setItem(product.id, JSON.stringify({count: currentProduct.count-=1, title: product.title}));
         }
+        getBasketCount();
         if (currentProduct.count < 1){
-            localStorage.removeItem
+            localStorage.removeItem(product.id);
         }
-        showProductsFromBasket()
+        getBasketCount();
     })
 }
 

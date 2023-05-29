@@ -4,10 +4,10 @@ const showProductsFromBasket = () => {
     productsDOM.innerHTML = '';
     for (let i = 0; i < localStorage.length; i++) {
         let id = localStorage.key(i);
-        let productData = JSON.parse(localStorage.getItem(id));
+        let product = JSON.parse(localStorage.getItem(id));
         productsDOM.innerHTML += `<div><div>
-        <span>${productData.title}</span>
-        <span>Count ${productData.count}</span>
+        <span>${product.title}</span>
+        <span>Count ${product.count}</span>
         </div></div>`
     }
 }

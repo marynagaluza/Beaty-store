@@ -1,7 +1,7 @@
 class Router {
     routes = [];
     constructor () {
-        this.listen()
+        this.listen();
     }
 
     add = (path, cb) => {
@@ -25,10 +25,10 @@ class Router {
         if (this.current === this.getFragment()) return;
         this.current = this.getFragment();
         this.routes.some(route => {
-            const match = this.current.match(route.path)
+            const match = this.current.match(route.path);
             if(match) {
-                match.shift()
-                route.cb(match[0])
+                match.shift();
+                route.cb(match[0]);
             }
             return false;
         })
