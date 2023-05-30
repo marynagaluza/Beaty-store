@@ -1,7 +1,7 @@
 import { getProducts } from './components/Products.js';
 import { getCategories } from './components/Categories.js';
 import { getProductsByCategory } from './components/ProductsBy.js';
-import { selectDOM, productsCount } from './DOM.js';
+import { selectDOM, basket } from './DOM.js';
 import { router } from "./components/Router.js";
 import { getProductById } from './components/getOneProduct.js';
 import { showProductsFromBasket } from './components/Basket.js';
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     getCategories();
     getBasketCount();
 
-    productsCount.addEventListener('click', () => showProductsFromBasket());
+    basket.addEventListener('click', () => showProductsFromBasket());
 })
 
 selectDOM.addEventListener('change', function() {

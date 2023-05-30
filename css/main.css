@@ -56,6 +56,7 @@ main {
 
 .products__list {
     display: flex;
+    justify-content: center;
     max-width: 1260px;
     flex-wrap: wrap;
     margin: 36px auto;
@@ -63,7 +64,7 @@ main {
 
 .products__item {
     width: 290px;
-    height: 320px;
+    height: auto;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -94,6 +95,13 @@ main {
     text-align: left;
     margin-top: 10px;
 }
+.products__item-count {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: left;
+    color: #0C111F;
+}
 
 .products__item-title {
     font-family: 'Ranade-Medium', sans-serif;
@@ -115,5 +123,6 @@ main {
     text-transform: uppercase;
     display: flex;
     justify-content: right;
+    align-items: center;
     margin: 0 20px 20px 0;
 }

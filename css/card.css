@@ -8,9 +8,16 @@
     box-shadow: rgba(51, 46, 84, 0.3) 0px 7px 29px 0px; 
 }
 
+.product__card img {
+    width: 40px;
+    height: 40px;
+    
+}
+
 .product__card a {
     width: 100%;
     padding: 15px 15px 0 0;
+    font-size: 18px;
 }
 
 
