@@ -15,10 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     basket.addEventListener('click', () => showProductsFromBasket());
 })
 
-window.addEventListener('unload', function () {
-    localStorage.clear();
-})
-
 selectDOM.addEventListener('change', function() {
     if (selectDOM.value === 'all') { 
         products.getProducts()
